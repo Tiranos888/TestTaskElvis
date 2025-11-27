@@ -1,0 +1,22 @@
+D:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v {1 {vlog -work work -stats=none D:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu16
+
+Top level modules:
+	alu16
+
+} {} {}} D:/Microchip/ElvisTest/TestTaskElvis/rtl/74182_CLA.v {1 {vlog -work work -stats=none D:/Microchip/ElvisTest/TestTaskElvis/rtl/74182_CLA.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module cla_74182
+
+Top level modules:
+	cla_74182
+
+} {} {}} D:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v {1 {vlog -work work -stats=none D:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu_74181
+
+Top level modules:
+	alu_74181
+
+} {} {}}
