@@ -9,6 +9,9 @@ logic clk;
 int passed_test_cnt;
 int failed_test_cnt;
 
+// Vector for test inputs 
+logic [9:0] inputs_vector [100:0];
+
 // Correct ALU output to check
 logic [15:0] correct_alu_val = 16'h0000;
 
@@ -54,18 +57,24 @@ endtask
 
 task run_tests();
   test_add_operation();
-  //...
+  #20;
   test_and_operation();
   //...
 endtask
 
 // Individual test tasks
-  task test_add_operation();
+task test_add_operation();
   $display("Testing ADD operation...");
   alu_intf.opcode <= 4'b0000; // ADD
-  alu_intf.operand_a <= 16'h0005;
-  alu_intf.operand_b <= 16'h0003;
-  alu_intf.carry_in <= 0;
+
+  //TODO needs testings + add cicle through all file values
+  $readmemb("add_operation_test", inputs_vector);
+  {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[0];
+  #10;
+
+  //alu_intf.operand_a <= 16'h0005;
+  //alu_intf.operand_b <= 16'h0003;
+  //alu_intf.carry_in <= 0;
   
   //...
   
@@ -74,6 +83,7 @@ endtask
 task test_and_operation();
   $display("Testing AND operation...");
   alu_intf.opcode <= 4'b0101; // AND
+
   alu_intf.operand_a <= 16'h00FF;
   alu_intf.operand_b <= 16'h0F0F;
   //...
@@ -113,12 +123,12 @@ always @(alu_intf.result) begin
   //TODO add test names to display and carry out check
   if (alu_intf.result == correct_alu_val) begin
     $display("Test passed");
-    passed_test_cnt++;
+    passed_test_cnt = passed_test_cnt + 1;
   end else begin
     $display("Test failed");
     $display("Expected value: %d", correct_alu_val);
     $display("Received value: %d", alu_intf.result);
-    failed_test_cnt++; 
+    failed_test_cnt = failed_test_cnt + 1; 
   end
 
 end
