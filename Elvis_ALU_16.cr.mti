@@ -1,23 +1,23 @@
-D:/Microchip/ElvisTest/TestTaskElvis/alu_if.sv {1 {vlog -work work -sv -stats=none D:/Microchip/ElvisTest/TestTaskElvis/alu_if.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling interface alu_if
-
-Top level modules:
-	--none--
-
-} {} {}} D:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v {1 {vlog -work work -stats=none D:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v
+D:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v {1 {vlog -work work -stats=none D:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module alu16
 
 Top level modules:
 	alu16
 
-} {} {}} D:/Microchip/ElvisTest/TestTaskElvis/alu_tb.sv {1 {vlog -work work -sv -stats=none D:/Microchip/ElvisTest/TestTaskElvis/alu_tb.sv
+} {} {}} D:/Microchip/ElvisTest/TestTaskElvis/alu_if.sv {1 {vlog -work work -sv -stats=none D:/Microchip/ElvisTest/TestTaskElvis/alu_if.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module alu_tb
+-- Compiling interface alu_if
 
 Top level modules:
-	alu_tb
+	--none--
+
+} {} {}} D:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v {1 {vlog -work work -stats=none D:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu_74181
+
+Top level modules:
+	alu_74181
 
 } {} {}} D:/Microchip/ElvisTest/TestTaskElvis/rtl/74182_CLA.v {1 {vlog -work work -stats=none D:/Microchip/ElvisTest/TestTaskElvis/rtl/74182_CLA.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -26,11 +26,11 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	cla_74182
 
-} {} {}} D:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v {1 {vlog -work work -stats=none D:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v
+} {} {}} D:/Microchip/ElvisTest/TestTaskElvis/alu_tb.sv {1 {vlog -work work -sv -stats=none D:/Microchip/ElvisTest/TestTaskElvis/alu_tb.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module alu_74181
+-- Compiling module alu_tb
 
 Top level modules:
-	alu_74181
+	alu_tb
 
 } {} {}}

@@ -1,0 +1,22 @@
+
+interface alu_if (input logic clk);
+  logic        reset;
+  logic [15:0] operand_a;
+  logic [15:0] operand_b; 
+  logic [3:0]  opcode;
+  logic [15:0] result;
+  logic        carry_in;
+  logic        carry_out;
+
+  // What the DUT sees
+  modport dut_mp (
+    input  clk, reset, operand_a, operand_b, opcode, carry_in,
+    output result, carry_out
+  );
+
+  // What the testbench drives/observes
+  modport tb_mp (
+    input  clk, result, carry_out,
+    output reset, operand_a, operand_b, opcode, carry_in
+  );
+endinterface

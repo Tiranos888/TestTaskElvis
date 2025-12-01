@@ -1,0 +1,145 @@
+
+`timescale 1ns/1ps
+
+// Main testbench module
+module alu_tb;
+logic clk;
+
+// Test results counters
+int passed_test_cnt;
+int failed_test_cnt;
+
+// Vector for test inputs 
+logic [32:0] inputs_vector [100:0];
+
+// Correct ALU output to check
+logic [15:0] correct_alu_val = 16'h0000;
+
+// Interface instantiation
+alu_if alu_intf(clk);
+
+// DUT instantiation using interface
+alu16 dut (
+.clk(clk),
+.reset(alu_intf.reset),
+.operand_a(alu_intf.operand_a),
+.operand_b(alu_intf.operand_b),
+.opcode(alu_intf.opcode),
+.carry_in(alu_intf.carry_in),
+.result(alu_intf.result),
+.carry_out(alu_intf.carry_out)
+);
+
+// Clock generation
+initial begin
+  clk = 0;
+  forever #5 clk = ~clk;
+end
+
+// Test controller
+initial begin
+  initialize_test();
+  run_tests();
+  report_results();
+  $finish;
+end
+
+// Helper tasks
+task initialize_test();
+  alu_intf.reset <= 1;
+  alu_intf.operand_a <= 0;
+  alu_intf.operand_b <= 0;
+  alu_intf.opcode <= 0;
+  alu_intf.carry_in <= 0;
+  #20 alu_intf.reset <= 0;
+  $display("Test initialization completed");
+endtask
+
+task run_tests();
+  test_add_operation();
+  #20;
+  test_and_operation();
+  //...
+endtask
+
+// Individual test tasks
+task test_add_operation();
+  $display("Testing ADD operation...");
+  alu_intf.opcode <= 4'b0000; // ADD
+
+  $readmemh("tests/add_operation_test", inputs_vector);
+  
+  for (i = 0; i < 100; i++) begin
+    if (inputs_vector[i] === 'x) break;
+
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+
+    @(posedge clk);
+  end
+  
+endtask
+
+task test_and_operation();
+  $display("Testing AND operation...");
+  alu_intf.opcode <= 4'b0101; // AND
+
+  alu_intf.operand_a <= 16'h00FF;
+  alu_intf.operand_b <= 16'h0F0F;
+  //...
+endtask
+
+
+// Results reporting
+task report_results();
+  $display("\n=== TEST SUMMARY ===");
+  $display("All basic operations tested");
+  $display("Testbench completed successfully");
+  $display("%d tests passed", passed_test_cnt);
+  $display("%d tests failed", failed_test_cnt);
+endtask
+
+function correct_alu_value(
+    input [15:0] a,
+    input [15:0] b,
+    input [3:0]  opcode,
+    input        carry_in
+);
+
+  case (opcode)
+    4'b0000: correct_alu_value = a + b + carry_in;   // ADD
+    4'b0001: correct_alu_value = a - b - carry_in;   // SUB
+    4'b0101: correct_alu_value = {1'b0, a & b};      // AND
+    4'b0110: correct_alu_value = {1'b0, a | b};      // OR
+    4'b0111: correct_alu_value = {1'b0, a ^ b};      // XOR
+    default: correct_alu_value = 17'hBAD1;
+  endcase 
+  
+endfunction
+
+always @(alu_intf.result) begin
+  correct_alu_val = correct_alu_value(alu_intf.operand_a , alu_intf.operand_b , alu_intf.opcode , alu_intf.carry_in);
+
+  //TODO add test names to display and carry out check
+  if (alu_intf.result == correct_alu_val) begin
+    $display("Test passed");
+    passed_test_cnt = passed_test_cnt + 1;
+  end else begin
+    $display("Test failed");
+    $display("Expected value: %d", correct_alu_val);
+    $display("Received value: %d", alu_intf.result);
+    failed_test_cnt = failed_test_cnt + 1; 
+  end
+
+end
+
+
+// Additional monitoring
+always @(posedge clk) begin
+if (!alu_intf.reset) begin
+  // Monitor can be extended here
+  $display("Cycle: opcode=%h, a=%h, b=%h, result=%h, carry_out=%b",
+            alu_intf.opcode, alu_intf.operand_a, 
+            alu_intf.operand_b, alu_intf.result, alu_intf.carry_out);
+end
+end
+endmodule
