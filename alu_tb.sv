@@ -10,7 +10,7 @@ int passed_test_cnt;
 int failed_test_cnt;
 
 // Vector for test inputs 
-logic [9:0] inputs_vector [100:0];
+logic [32:0] inputs_vector [100:0];
 
 // Correct ALU output to check
 logic [15:0] correct_alu_val = 16'h0000;
@@ -67,16 +67,15 @@ task test_add_operation();
   $display("Testing ADD operation...");
   alu_intf.opcode <= 4'b0000; // ADD
 
-  //TODO needs testings + add cicle through all file values
-  $readmemb("add_operation_test", inputs_vector);
-  {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[0];
-  #10;
-
-  //alu_intf.operand_a <= 16'h0005;
-  //alu_intf.operand_b <= 16'h0003;
-  //alu_intf.carry_in <= 0;
+  $readmemh("tests/add_operation_test", inputs_vector);
   
-  //...
+  for (int i = 0; i < 100; i++) begin
+    if (inputs_vector[i] === 'x) break;
+
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+
+    @(posedge clk);
+  end
   
 endtask
 
