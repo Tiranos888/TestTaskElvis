@@ -55,7 +55,8 @@ task initialize_test();
   alu_intf.opcode <= 0;
   alu_intf.carry_in <= 0;
   alu_intf.mode <= 0;
-  #20 alu_intf.reset <= 0;
+  #20;
+  alu_intf.reset <= 0;
   $display("Test initialization completed");
 endtask
 
@@ -99,9 +100,9 @@ task test_sub_operation();
   $readmemh("tests/sub_operation_test", inputs_vector);
   
   for (int i = 0; i < 100; i++) begin
-    if (inputs_vector[i] === 'x) break;
+    if (^inputs_vector[i] === 1'bX) break;
 
-    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} <= inputs_vector[i];
 
     @(posedge clk);
   end
@@ -117,9 +118,9 @@ task test_inc_operation();
   $readmemh("tests/inc_operation_test", inputs_vector);
   
   for (int i = 0; i < 100; i++) begin
-    if (inputs_vector[i] === 'x) break;
+    if (^inputs_vector[i] === 1'bX) break;
 
-    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} <= inputs_vector[i];
 
     @(posedge clk);
   end
@@ -134,9 +135,9 @@ task test_and_operation();
   $readmemh("tests/and_operation_test", inputs_vector);
   
   for (int i = 0; i < 100; i++) begin
-    if (inputs_vector[i] === 'x) break;
+    if (^inputs_vector[i] === 1'bX) break;
 
-    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} <= inputs_vector[i];
 
     @(posedge clk);
   end
@@ -151,9 +152,9 @@ task test_or_operation();
   $readmemh("tests/or_operation_test", inputs_vector);
   
   for (int i = 0; i < 100; i++) begin
-    if (inputs_vector[i] === 'x) break;
+    if (^inputs_vector[i] === 1'bX) break;
 
-    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} <= inputs_vector[i];
 
     @(posedge clk);
   end

@@ -99,9 +99,9 @@ task test_sub_operation();
   $readmemh("tests/sub_operation_test", inputs_vector);
   
   for (int i = 0; i < 100; i++) begin
-    if (inputs_vector[i] === 'x) break;
+    if (^inputs_vector[i] === 1'bX) break;
 
-    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} <= inputs_vector[i];
 
     @(posedge clk);
   end
@@ -117,9 +117,9 @@ task test_inc_operation();
   $readmemh("tests/inc_operation_test", inputs_vector);
   
   for (int i = 0; i < 100; i++) begin
-    if (inputs_vector[i] === 'x) break;
+    if (^inputs_vector[i] === 1'bX) break;
 
-    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} <= inputs_vector[i];
 
     @(posedge clk);
   end
@@ -134,9 +134,9 @@ task test_and_operation();
   $readmemh("tests/and_operation_test", inputs_vector);
   
   for (int i = 0; i < 100; i++) begin
-    if (inputs_vector[i] === 'x) break;
+    if (^inputs_vector[i] === 1'bX) break;
 
-    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} <= inputs_vector[i];
 
     @(posedge clk);
   end
@@ -151,9 +151,9 @@ task test_or_operation();
   $readmemh("tests/or_operation_test", inputs_vector);
   
   for (int i = 0; i < 100; i++) begin
-    if (inputs_vector[i] === 'x) break;
+    if (^inputs_vector[i] === 1'bX) break;
 
-    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} <= inputs_vector[i];
 
     @(posedge clk);
   end
@@ -190,14 +190,13 @@ endfunction
 always @(posedge clk) begin
   correct_alu_val = correct_alu_value(alu_intf.operand_a , alu_intf.operand_b , alu_intf.opcode , alu_intf.carry_in);
 
-
-    if (alu_intf.result === correct_alu_val) begin
-      $display("[PASS] A=%h B=%h res: %h", alu_intf.operand_a, alu_intf.operand_b, alu_intf.result);
-      passed_test_cnt++;
-    end else begin
-      $display("[FAIL] A=%h B=%h exp=%h got=%h", alu_intf.operand_a, alu_intf.operand_b, correct_alu_val, alu_intf.result);
-      failed_test_cnt++;
-    end
+  if (alu_intf.result === correct_alu_val) begin
+    $display("[PASS] A=%h B=%h res: %h", alu_intf.operand_a, alu_intf.operand_b, alu_intf.result);
+    passed_test_cnt++;
+  end else begin
+    $display("[FAIL] A=%h B=%h exp=%h got=%h", alu_intf.operand_a, alu_intf.operand_b, correct_alu_val, alu_intf.result);
+    failed_test_cnt++;
+  end
 
 end
 
