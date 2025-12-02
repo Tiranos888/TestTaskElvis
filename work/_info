@@ -1,0 +1,123 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/Microchip/ModelSim
+valu16
+Z0 !s110 1764701541
+!i10b 1
+!s100 DWfMYKDfch[[[aV6@m>Mf2
+I9<lGURn1=gRk9oI>@ME=[1
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dD:/Microchip/ElvisTest/TestTaskElvis
+w1764150239
+8D:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v
+FD:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v
+L0 1
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1764701541.000000
+!s107 D:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Microchip/ElvisTest/TestTaskElvis/rtl/top_alu_16.v|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
+valu_74181
+R0
+!i10b 1
+!s100 =QPF59M>Xd8T@J2Rmh`NN0
+ImeUEIT?BdRgiKV3VGRaAj2
+R1
+R2
+w1764150275
+8D:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v
+FD:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v
+L0 29
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Microchip/ElvisTest/TestTaskElvis/rtl/74181.v|
+!i113 1
+R5
+R6
+Yalu_if
+Z7 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+R0
+!i10b 1
+!s100 <LX?B77;L6o8oAT>NV2zL0
+IjCXEQ1Ro5bA8D[Y3[V0N^3
+R1
+!s105 alu_if_sv_unit
+S1
+R2
+w1764697291
+8D:/Microchip/ElvisTest/TestTaskElvis/alu_if.sv
+FD:/Microchip/ElvisTest/TestTaskElvis/alu_if.sv
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Microchip/ElvisTest/TestTaskElvis/alu_if.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Microchip/ElvisTest/TestTaskElvis/alu_if.sv|
+!i113 1
+Z8 o-work work -sv
+R6
+valu_tb
+R7
+R0
+!i10b 1
+!s100 Ri>E6<R[l7mKLjlJE8WR23
+Iiamf;4BON_[V3=bY2<UQX0
+R1
+!s105 alu_tb_sv_unit
+S1
+R2
+w1764701499
+8D:/Microchip/ElvisTest/TestTaskElvis/alu_tb.sv
+FD:/Microchip/ElvisTest/TestTaskElvis/alu_tb.sv
+L0 5
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Microchip/ElvisTest/TestTaskElvis/alu_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Microchip/ElvisTest/TestTaskElvis/alu_tb.sv|
+!i113 1
+R8
+R6
+vcla_74182
+R0
+!i10b 1
+!s100 @R4`K3IilGTZzd>Aazig80
+I20;dIR6Rnc4kknSX4z3e:2
+R1
+R2
+w1764150237
+8D:/Microchip/ElvisTest/TestTaskElvis/rtl/74182_CLA.v
+FD:/Microchip/ElvisTest/TestTaskElvis/rtl/74182_CLA.v
+L0 5
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Microchip/ElvisTest/TestTaskElvis/rtl/74182_CLA.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Microchip/ElvisTest/TestTaskElvis/rtl/74182_CLA.v|
+!i113 1
+R5
+R6

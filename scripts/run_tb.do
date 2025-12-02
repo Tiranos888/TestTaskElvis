@@ -4,6 +4,9 @@ vlib work
 
 vlog -sv +incdir+./ ./alu_tb.sv
 vlog -sv +incdir+./ ./alu_if.sv
+vlog -sv top_alu_16.v
+vlog -sv 74181.v
+vlog -sv 74182_CLA.v
 
 vsim -t 1ns -voptargs="+acc" alu_tb
 

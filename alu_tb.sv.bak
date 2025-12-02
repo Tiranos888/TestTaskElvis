@@ -25,7 +25,7 @@ alu16 dut (
 .a(alu_intf.operand_a),
 .b(alu_intf.operand_b),
 .sel(alu_intf.opcode),
-.mode(),
+.mode(alu_intf.mode),
 .Cin(alu_intf.carry_in),
 .result(alu_intf.result),
 .Cout(alu_intf.carry_out),
@@ -54,6 +54,7 @@ task initialize_test();
   alu_intf.operand_b <= 0;
   alu_intf.opcode <= 0;
   alu_intf.carry_in <= 0;
+  alu_intf.mode <= 0;
   #20 alu_intf.reset <= 0;
   $display("Test initialization completed");
 endtask
@@ -61,14 +62,21 @@ endtask
 task run_tests();
   test_add_operation();
   #20;
-  test_and_operation();
-  //...
+  test_sub_operation();
+  #20;  
+  test_inc_operation();
+  #20;
+  test_add_operation();
+  #20;
+  test_or_operation();
+  #20;
 endtask
 
 // Individual test tasks
 task test_add_operation();
   $display("Testing ADD operation...");
-  alu_intf.opcode <= 4'b0000; // ADD
+  alu_intf.opcode <= 4'b1001; // ADD
+  alu_intf.mode <= 0;
 
   $readmemh("tests/add_operation_test", inputs_vector);
   
@@ -82,15 +90,75 @@ task test_add_operation();
   
 endtask
 
-task test_and_operation();
-  $display("Testing AND operation...");
-  alu_intf.opcode <= 4'b0101; // AND
 
-  alu_intf.operand_a <= 16'h00FF;
-  alu_intf.operand_b <= 16'h0F0F;
-  //...
+task test_sub_operation();
+  $display("Testing SUB operation...");
+  alu_intf.opcode <= 4'b0110; // SUB
+  alu_intf.mode <= 0;
+
+  $readmemh("tests/sub_operation_test", inputs_vector);
+  
+  for (int i = 0; i < 100; i++) begin
+    if (inputs_vector[i] === 'x) break;
+
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+
+    @(posedge clk);
+  end
+
 endtask
 
+
+task test_inc_operation();
+  $display("Testing INC operation...");
+  alu_intf.opcode <= 4'b0011; // INC
+  alu_intf.mode <= 0;
+
+  $readmemh("tests/inc_operation_test", inputs_vector);
+  
+  for (int i = 0; i < 100; i++) begin
+    if (inputs_vector[i] === 'x) break;
+
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+
+    @(posedge clk);
+  end
+
+endtask
+
+task test_and_operation();
+  $display("Testing AND operation...");
+  alu_intf.opcode <= 4'b1100; // AND
+  alu_intf.mode <= 1;
+
+  $readmemh("tests/and_operation_test", inputs_vector);
+  
+  for (int i = 0; i < 100; i++) begin
+    if (inputs_vector[i] === 'x) break;
+
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+
+    @(posedge clk);
+  end
+endtask
+
+
+task test_or_operation();
+  $display("Testing OR operation...");
+  alu_intf.opcode <= 4'b1110; // OR
+  alu_intf.mode <= 1;
+
+  $readmemh("tests/or_operation_test", inputs_vector);
+  
+  for (int i = 0; i < 100; i++) begin
+    if (inputs_vector[i] === 'x) break;
+
+    {alu_intf.operand_a, alu_intf.operand_b, alu_intf.carry_in} = inputs_vector[i];
+
+    @(posedge clk);
+  end
+
+endtask
 
 // Results reporting
 task report_results();
@@ -119,19 +187,17 @@ function correct_alu_value(
   
 endfunction
 
-always @(alu_intf.result) begin
+always @(posedge clk) begin
   correct_alu_val = correct_alu_value(alu_intf.operand_a , alu_intf.operand_b , alu_intf.opcode , alu_intf.carry_in);
 
-  //TODO add test names to display and carry out check
-  if (alu_intf.result == correct_alu_val) begin
-    $display("Test passed");
-    passed_test_cnt = passed_test_cnt + 1;
-  end else begin
-    $display("Test failed");
-    $display("Expected value: %d", correct_alu_val);
-    $display("Received value: %d", alu_intf.result);
-    failed_test_cnt = failed_test_cnt + 1; 
-  end
+
+    if (alu_intf.result === correct_alu_val) begin
+      $display("[PASS] A=%h B=%h res: %h", alu_intf.operand_a, alu_intf.operand_b, alu_intf.result);
+      passed_test_cnt++;
+    end else begin
+      $display("[FAIL] A=%h B=%h exp=%h got=%h", alu_intf.operand_a, alu_intf.operand_b, correct_alu_val, alu_intf.result);
+      failed_test_cnt++;
+    end
 
 end
 
