@@ -20,14 +20,17 @@ alu_if alu_intf(clk);
 
 // DUT instantiation using interface
 alu16 dut (
-.clk(clk),
-.reset(alu_intf.reset),
-.operand_a(alu_intf.operand_a),
-.operand_b(alu_intf.operand_b),
-.opcode(alu_intf.opcode),
-.carry_in(alu_intf.carry_in),
+//.clk(clk),
+//.reset(alu_intf.reset),
+.a(alu_intf.operand_a),
+.b(alu_intf.operand_b),
+.sel(alu_intf.opcode),
+.mode(1'b0),
+.Cin(alu_intf.carry_in),
 .result(alu_intf.result),
-.carry_out(alu_intf.carry_out)
+.Cout(alu_intf.carry_out),
+.nBo(), 
+.nGo()
 );
 
 // Clock generation
